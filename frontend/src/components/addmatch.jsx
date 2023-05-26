@@ -20,8 +20,9 @@ const AddMatchDialog = ({ onAddMatch }) => {
     window.location.reload();
   };
   const updatePlayerStats = async (player1, player2, winner) => {
+    console.log('running')
     try {
-      const response = await axios.put('http://localhost:3003/api/playerStats', {
+      const response = await axios.put('http://localhost:3003/api/playerstats', {
         player1,
         player2,
         winner,
@@ -43,7 +44,7 @@ const AddMatchDialog = ({ onAddMatch }) => {
     };
 
     onAddMatch(newMatch);
-    updatePlayerStats(newMatch);
+    updatePlayerStats(newMatch.player1,newMatch.player2,newMatch.winner);
     handleClose();
   };
 

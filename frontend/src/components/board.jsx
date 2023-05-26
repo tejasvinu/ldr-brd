@@ -57,11 +57,11 @@ const PlayerTable = () => {
           </TableCell>
           <TableCell>
             <TableSortLabel
-              active={sortColumn === 'winLossRatio'}
-              direction={sortColumn === 'winLossRatio' ? sortOrder : 'asc'}
-              onClick={() => handleSort('winLossRatio')}
+              active={sortColumn === 'no of matches'}
+              direction={sortColumn === 'no of matches' ? sortOrder : 'asc'}
+              onClick={() => handleSort('no of matches')}
             >
-              Win-Loss Ratio
+                No Of Matches
             </TableSortLabel>
           </TableCell>
           <TableCell>
@@ -79,7 +79,7 @@ const PlayerTable = () => {
         {sortedPlayers.map((player) => (
           <TableRow key={player._id}>
             <TableCell>{player.name}</TableCell>
-            <TableCell>{player.winLossRatio}</TableCell>
+            <TableCell>{player.noOfMatches}</TableCell>
             <TableCell>{player.elo}</TableCell>
           </TableRow>
         ))}

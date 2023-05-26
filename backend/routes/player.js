@@ -40,7 +40,7 @@ app.get('/api/players', async (req, res) => {
   }
 });
 
-app.put('/api/Player', async (req, res) => {
+app.put('/api/playerstats', async (req, res) => {
   const { player1, player2, winner } = req.body;
 
   try {
@@ -51,8 +51,7 @@ app.put('/api/Player', async (req, res) => {
       player1Stats = new Player({
         name: player1,
         noOfMatches: 1,
-        winLossRatio: 0,
-        elo: 1000
+        elo: 1000,
       });
     }
 
@@ -60,8 +59,7 @@ app.put('/api/Player', async (req, res) => {
       player2Stats = new Player({
         name: player2,
         noOfMatches: 1,
-        winLossRatio: 0,
-        elo: 1000
+        elo: 1000,
       });
     }
 
@@ -70,18 +68,15 @@ app.put('/api/Player', async (req, res) => {
     player2Stats.noOfMatches += 1;
 
     if (winner === player1) {
-      player1Stats.winLossRatio = player1Stats.noOfMatches / (player1Stats.noOfMatches + player1Stats.noOfLosses);
-      player2Stats.winLossRatio = player2Stats.noOfMatches / (player2Stats.noOfMatches + player2Stats.noOfLosses);
       player1Stats.elo += 10;
+      player2Stats.elo -= 10;
     } else if (winner === player2) {
-      player1Stats.winLossRatio = player1Stats.noOfMatches / (player1Stats.noOfMatches + player1Stats.noOfLosses);
-      player2Stats.winLossRatio = player2Stats.noOfMatches / (player2Stats.noOfMatches + player2Stats.noOfLosses);
       player2Stats.elo += 10;
+      player1Stats.elo -= 10;
     } else {
       // Handle the case where the match result is invalid
       return res.status(400).json({ message: 'Invalid match result' });
     }
-
     // Save the updated player stats to the database
     await player1Stats.save();
     await player2Stats.save();
@@ -92,7 +87,6 @@ app.put('/api/Player', async (req, res) => {
     res.status(500).json({ message: 'Failed to update player stats' });
   }
 });
-
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

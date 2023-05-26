@@ -4,9 +4,6 @@ const playerSchema = new mongoose.Schema({
   name: {
     type: String,
   },
-  winLossRatio: {
-    type: Number,
-  },
   noOfMatches: {
     type: Number,
   },
