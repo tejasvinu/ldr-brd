@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableHead, TableRow, TableCell, TableBody, TableSortLabel} from '@material-ui/core';
+import { Table } from 'react-bootstrap';
 import axios from 'axios';
 
 const MatchesTable = () => {
@@ -13,7 +13,7 @@ const MatchesTable = () => {
 
   const fetchMatches = async () => {
     try {
-      const response = await axios.get('http://localhost:3004/api/matches'); // Make a GET request to the backend endpoint
+      const response = await axios.get('https://coral-app-rgl66.ondigitalocean.app/match');
       setMatches(response.data);
     } catch (error) {
       console.error(error);
@@ -41,57 +41,45 @@ const MatchesTable = () => {
   });
 
   return (
-    <Table>
-      <TableHead>
-        <TableRow>
-          <TableCell>
-            <TableSortLabel
-              active={sortedField === 'date'}
-              direction={sortDirection}
-              onClick={() => handleSort('date')}
-            >
-              Date
-            </TableSortLabel>
-          </TableCell>
-          <TableCell>
-            <TableSortLabel
-              active={sortedField === 'player1'}
-              direction={sortDirection}
-              onClick={() => handleSort('player1')}
-            >
-              Player 1
-            </TableSortLabel>
-          </TableCell>
-          <TableCell>
-            <TableSortLabel
-              active={sortedField === 'player2'}
-              direction={sortDirection}
-              onClick={() => handleSort('player2')}
-            >
-              Player 2
-            </TableSortLabel>
-          </TableCell>
-          <TableCell>
-            <TableSortLabel
-              active={sortedField === 'winner'}
-              direction={sortDirection}
-              onClick={() => handleSort('winner')}
-            >
-              Winner
-            </TableSortLabel>
-          </TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
+    <Table striped bordered hover responsive>
+      <thead>
+        <tr>
+          <th
+            onClick={() => handleSort('date')}
+            style={{ cursor: 'pointer' }}
+          >
+            Date
+          </th>
+          <th
+            onClick={() => handleSort('player1')}
+            style={{ cursor: 'pointer' }}
+          >
+            Player 1
+          </th>
+          <th
+            onClick={() => handleSort('player2')}
+            style={{ cursor: 'pointer' }}
+          >
+            Player 2
+          </th>
+          <th
+            onClick={() => handleSort('winner')}
+            style={{ cursor: 'pointer' }}
+          >
+            Winner
+          </th>
+        </tr>
+      </thead>
+      <tbody>
         {sortedMatches.map((match) => (
-          <TableRow key={match._id}>
-            <TableCell>{match.date}</TableCell>
-            <TableCell>{match.player1}</TableCell>
-            <TableCell>{match.player2}</TableCell>
-            <TableCell>{match.winner}</TableCell>
-          </TableRow>
+          <tr key={match._id}>
+            <td>{match.date}</td>
+            <td>{match.player1}</td>
+            <td>{match.player2}</td>
+            <td>{match.winner}</td>
+          </tr>
         ))}
-      </TableBody>
+      </tbody>
     </Table>
   );
 };

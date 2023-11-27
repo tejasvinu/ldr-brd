@@ -1,35 +1,30 @@
 import React from 'react';
-import { AppBar, Button, Toolbar, Typography, Link } from '@material-ui/core';
-import AddMatchDialog from './addmatch';
 import axios from 'axios';
+import { Navbar, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import AddMatchDialog from './addMatchDialog'; // Ensure the correct filename
 
-const Navbar = () => {
+const NavigationBar = () => {
   const handleAddMatch = async (newMatch) => {
     try {
-      const response = await axios.post('http://localhost:3004/api/matches', newMatch);
-      console.log(response.data); // Optional: Log the response or handle it as needed
+      const response = await axios.post('https://coral-app-rgl66.ondigitalocean.app/match/api/matches', newMatch);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
-      // Handle error case: display an error message, show a notification, etc.
     }
   };
+
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6">Badt</Typography>
-        <Link href="/" color="inherit" style={{ marginLeft: 'auto' }}>
-          Home
-        </Link>
-        <Link href="/players" color="inherit" style={{ marginLeft: '1rem' }}>
-          Players
-        </Link>
-        <Link href="/matches" color="inherit" style={{ marginLeft: '1rem' }}>
-          Matches
-        </Link>
-        <AddMatchDialog onAddMatch={handleAddMatch} />
-      </Toolbar>
-    </AppBar>
+    <Navbar bg="dark" variant="dark">
+      <Navbar.Brand>Badt</Navbar.Brand>
+      <Nav className="mr-auto">
+        <Nav.Link as={Link} to="/">Home</Nav.Link>
+        <Nav.Link as={Link} to="/players">Players</Nav.Link>
+        <Nav.Link as={Link} to="/matches">Matches</Nav.Link>
+      </Nav>
+      <AddMatchDialog onAddMatch={handleAddMatch} />
+    </Navbar>
   );
 };
 
-export default Navbar;
+export default NavigationBar;

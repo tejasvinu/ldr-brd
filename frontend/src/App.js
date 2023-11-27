@@ -1,18 +1,19 @@
+// App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
-import Home from './components/home';
+import Home from './components/home'; // Make sure the file and component names match
 import Players from './components/board';
-import Matches from './components/matches';
+import MatchesTable from './components/matches';
 
-const App = () => {
+const App = () => { 
   return (
     <Router>
       <Navbar />
       <Routes>
-        <Route exact path="/" element={<Home/>} />
-        <Route path="/players" element={<Players/>} />
-        <Route path="/matches" element={<Matches/>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/players" element={<Players />} />
+        <Route path="/matches" element={<MatchesTable />} />
       </Routes>
     </Router>
   );
